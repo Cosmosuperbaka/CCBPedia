@@ -12,6 +12,7 @@ const NAV = [
 ];
 
 const GAME_URL = 'https://ccb.baka.website';
+const REPO_URL = 'https://github.com/Cosmosuperbaka/CCBPedia';
 const ICON = `${import.meta.env.BASE_URL}brand/icon.jpg`;
 
 type Theme = 'light' | 'dark';
@@ -156,9 +157,14 @@ export function Layout() {
             <p className="footer__title serif">CCBPedia</p>
             <p className="faint">「二刺猿笑传之猜猜呗」赛事数据百科 · 数据由赛事主办方与群友整理</p>
           </div>
-          <a className="footer__link" href={GAME_URL} target="_blank" rel="noreferrer">
-            ccb.baka.website
-          </a>
+          <p className="footer__links">
+            <a className="footer__link" href={GAME_URL} target="_blank" rel="noreferrer">
+              ccb.baka.website
+            </a>
+            <a className="footer__link" href={REPO_URL} target="_blank" rel="noreferrer">
+              源码 · AGPL-3.0
+            </a>
+          </p>
         </div>
       </footer>
     </div>

@@ -2,7 +2,7 @@
 
 [![在线访问](https://img.shields.io/badge/在线访问-ccbpedia.baka.website-c2553a)](https://ccbpedia.baka.website)
 [![CI](https://github.com/Cosmosuperbaka/CCBPedia/actions/workflows/ci.yml/badge.svg)](https://github.com/Cosmosuperbaka/CCBPedia/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-2f7a59)](./LICENSE)
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-2f7a59)](./LICENSE)
 
 「[二刺猿笑传之猜猜呗](https://ccb.baka.website)」赛事数据百科：记录每一届赛事的赛程、比分、选手与年度榜单。
 
@@ -73,5 +73,5 @@ esa-cli deploy --name ccbpedia --assets ./dist --environment production
 
 ## 许可
 
-- 代码以 [MIT](./LICENSE) 许可发布。
+- 代码以 [GNU AGPL-3.0](./LICENSE) 许可发布：可以自由使用、修改和再发布，但修改后的版本（包括部署成网站对外提供服务的情况）必须以同样的许可公开源码。
 - 赛事数据由赛事主办方与群友整理；选手头像、游戏图标与海报的权利归各自的作者所有，仅用于展示。如有不希望被展示的内容，请提 Issue，会尽快处理。

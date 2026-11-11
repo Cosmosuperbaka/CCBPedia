@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "description": "CCBPedia —— 二刺猿笑传之猜猜呗 赛事数据百科",
-  "license": "MIT",
+  "license": "AGPL-3.0-only",
   "homepage": "https://ccbpedia.baka.website",
   "repository": {
     "type": "git",

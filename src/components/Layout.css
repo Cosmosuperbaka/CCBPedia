@@ -170,6 +170,12 @@
   margin-bottom: 2px;
 }
 
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-5);
+}
+
 .footer__link {
   color: var(--ink-2);
   transition: color var(--dur-1) var(--ease);
