@@ -37,6 +37,9 @@
   --dur-2: 240ms;
   --dur-3: 420ms;
 
+  /* 第三方品牌色 */
+  --brand-claude: #d97757;
+
   --page-w: 1120px;
   --header-h: 60px;
 }

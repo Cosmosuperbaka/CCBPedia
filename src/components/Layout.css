@@ -156,9 +156,21 @@
   font-size: var(--fs-sm);
 }
 
+.footer__made {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Claude 标识用它自己的品牌色 */
+.claude-mark {
+  flex: none;
+  color: var(--brand-claude);
+}
+
 .footer__inner {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: var(--sp-4);
   flex-wrap: wrap;

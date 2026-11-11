@@ -68,7 +68,11 @@ export function PlayersPage() {
   const deferred = useDeferredValue(query);
   const q = deferred.trim().toLowerCase();
 
-  const list = useMemo(() => sortPlayers(players.filter((p) => matches(p, q)), sort), [q, sort]);
+  // 只列参赛选手：房主、裁判等只以工作人员身份出现的人不进名单
+  const list = useMemo(
+    () => sortPlayers(players.filter((p) => p.entries.length > 0 && matches(p, q)), sort),
+    [q, sort],
+  );
 
   return (
     <div className="page container">
@@ -76,7 +80,7 @@ export function PlayersPage() {
         <p className="eyebrow page-head__eyebrow">PLAYERS</p>
         <h1 className="page-title">选手</h1>
         <p className="page-lead">
-          所有在赛事记录中出现过的选手与工作人员。默认按冠军数、领奖台次数与参赛届数排序，点开卡片查看完整履历。
+          所有在赛事记录中出现过的选手。默认按冠军数、领奖台次数与参赛届数排序，点开卡片查看完整履历。
         </p>
       </header>
 
