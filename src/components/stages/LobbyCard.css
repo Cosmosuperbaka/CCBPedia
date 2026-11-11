@@ -1,0 +1,318 @@
+/* 多人房间卡片：年鉴式排版，层级靠字重与灰度区分，强调色只给领先者的分数条 */
+.lobby-card {
+  /* 让行 hover 底色（负 z-index 伪元素）停留在卡片背景之上 */
+  isolation: isolate;
+  min-width: 0;
+  padding: var(--sp-4) var(--sp-5) var(--sp-3);
+}
+
+/* ── 头部 ── */
+.lobby-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.lobby-card__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--sp-3);
+  min-width: 0;
+}
+
+.lobby-card__name {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+}
+
+.lobby-card__date {
+  font-size: var(--fs-md);
+  color: var(--ink-3);
+}
+
+.lobby-card__count {
+  flex: none;
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+/* ── 通用小件 ── */
+.lobby-card__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-1) var(--sp-2);
+  min-width: 0;
+}
+
+.lobby-card__note {
+  min-width: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+
+.lobby-card__team {
+  min-width: 0;
+  font-weight: 600;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+/* ── 计分形态：父级定义列，行用 subgrid 共享列宽，保证状态列跨行对齐 ── */
+.lobby-card__table {
+  --lobby-cols: 28px minmax(0, 2fr) minmax(48px, 1fr) 48px auto;
+  display: grid;
+  grid-template-columns: var(--lobby-cols);
+  column-gap: var(--sp-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lobby-card__table--plain {
+  --lobby-cols: 28px minmax(0, 2fr) minmax(48px, 1fr) 48px;
+}
+
+.lobby-card__row {
+  position: relative;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: center;
+  row-gap: 2px;
+  min-height: 44px;
+  padding: var(--sp-2) 0;
+  border-top: 1px solid var(--line);
+}
+
+.lobby-card__row:first-child,
+.lobby-card__cut + .lobby-card__row {
+  border-top: 0;
+}
+
+/* 不支持 subgrid 的浏览器：每行自带列定义，状态列给固定宽度以保持对齐 */
+@supports not (grid-template-columns: subgrid) {
+  .lobby-card__row {
+    grid-template-columns: 28px minmax(0, 1.2fr) minmax(60px, 1fr) 48px 4.5em;
+    column-gap: var(--sp-3);
+  }
+
+  .lobby-card__table--plain .lobby-card__row {
+    grid-template-columns: 28px minmax(0, 1.2fr) minmax(60px, 1fr) 48px;
+  }
+}
+
+/* 行 hover：极淡的底色，只在有鼠标的设备上出现 */
+.lobby-card__row::before {
+  content: '';
+  position: absolute;
+  inset: 0 calc(-1 * var(--sp-2));
+  z-index: -1;
+  border-radius: var(--r-sm);
+  background: var(--bg-tint);
+  opacity: 0;
+  transition: opacity var(--dur-1) var(--ease);
+}
+
+@media (hover: hover) {
+  .lobby-card__row:hover::before {
+    opacity: 0.6;
+  }
+}
+
+.lobby-card__rank {
+  grid-row: 1;
+  align-self: center;
+  font-size: var(--fs-md);
+  line-height: 1;
+  color: var(--ink-3);
+  text-align: right;
+}
+
+.lobby-card__who {
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+}
+
+.lobby-card__bar {
+  grid-row: 1;
+  min-width: 0;
+}
+
+.lobby-card__score {
+  grid-row: 1;
+  font-size: var(--fs-xl);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--ink);
+  text-align: right;
+}
+
+.lobby-card__row--lead .lobby-card__score {
+  font-weight: 700;
+}
+
+.lobby-card__score--none {
+  font-size: var(--fs-md);
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+.lobby-card__status {
+  grid-row: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* 分解行：与分数条左缘对齐，延伸到分数列 */
+.lobby-card__parts {
+  grid-row: 2;
+  grid-column: 3 / 5;
+  font-size: var(--fs-xs);
+  line-height: 1.4;
+  color: var(--ink-3);
+}
+
+.lobby-card__parts .num {
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+.lobby-card__part {
+  white-space: nowrap;
+}
+
+.lobby-card__dot {
+  white-space: pre;
+}
+
+/* 缺席 / 弃赛 / 淘汰：整行弱化 */
+.lobby-card__row--dim .lobby-card__score,
+.lobby-card__row--dim .lobby-card__team,
+.lobby-card__row--dim .lobby-card__parts .num {
+  color: var(--ink-3);
+}
+
+.lobby-card__row--dim .lobby-card__score {
+  font-weight: 400;
+}
+
+.lobby-card__row--dim .lobby-card__bar {
+  opacity: 0.5;
+}
+
+/* 晋级线：虚线 + 居中小字 */
+.lobby-card__cut {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-1) 0;
+  font-size: var(--fs-xs);
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+}
+
+.lobby-card__cut::before,
+.lobby-card__cut::after {
+  content: '';
+  flex: 1;
+  border-top: 1px dashed var(--line-strong);
+}
+
+/* ── 名单形态 ── */
+.lobby-card__roster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  margin: 0;
+  padding: var(--sp-3) 0 var(--sp-1);
+  list-style: none;
+}
+
+.lobby-card__entry {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-1) var(--sp-2);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.lobby-card__teams {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lobby-card__team-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-4);
+  padding: var(--sp-3) 0;
+  border-top: 1px solid var(--line);
+}
+
+.lobby-card__team-row:first-child {
+  border-top: 0;
+}
+
+/* ── 底部备注 ── */
+.lobby-card__foot {
+  margin-top: var(--sp-2);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
+/* ── 窄屏：隐藏分数条列，分解行挪到名字下方 ── */
+@media (max-width: 559px) {
+  .lobby-card {
+    padding: var(--sp-3) var(--sp-4) var(--sp-2);
+  }
+
+  .lobby-card__table {
+    --lobby-cols: 24px minmax(0, 1fr) 44px auto;
+  }
+
+  .lobby-card__table--plain {
+    --lobby-cols: 24px minmax(0, 1fr) 44px;
+  }
+
+  @supports not (grid-template-columns: subgrid) {
+    .lobby-card__row {
+      grid-template-columns: 24px minmax(0, 1fr) 44px 4.5em;
+    }
+
+    .lobby-card__table--plain .lobby-card__row {
+      grid-template-columns: 24px minmax(0, 1fr) 44px;
+    }
+  }
+
+  .lobby-card__bar {
+    display: none;
+  }
+
+  .lobby-card__parts {
+    grid-column: 2 / -1;
+  }
+
+  .lobby-card__roster {
+    gap: var(--sp-2) var(--sp-3);
+  }
+}

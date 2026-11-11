@@ -1,0 +1,314 @@
+/* 瑞士轮视图：年鉴式排版。区块之间靠留白与 eyebrow 小标题分隔，层级靠字重与灰度；
+   晋级卡片顶部一条 --win 细线是唯一的色彩提示，淘汰卡片整体弱化。 */
+.swiss {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-7);
+  min-width: 0;
+}
+
+.swiss__eyebrow {
+  margin-bottom: var(--sp-3);
+}
+
+.swiss__dash {
+  display: inline-block;
+  margin: 0 0.12em;
+  color: var(--ink-3);
+}
+
+/* ── 晋级 / 淘汰卡片 ── */
+.swiss__outcomes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.swiss__outcome-cell {
+  display: flex;
+  min-width: 0;
+}
+
+.swiss__outcome {
+  flex: 1;
+  min-width: 0;
+  padding: var(--sp-4) var(--sp-4) var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  transition: border-color var(--dur-1) var(--ease);
+}
+
+/* 晋级：顶部 3px 细线（内阴影随圆角走，不会出现直角色块） */
+.swiss__outcome--advance {
+  box-shadow: inset 0 3px 0 var(--win), var(--shadow-1);
+}
+
+/* 淘汰：去掉底色与阴影，整体退后一层 */
+.swiss__outcome--out {
+  background: transparent;
+  box-shadow: none;
+}
+
+@media (hover: hover) {
+  .swiss__outcome:hover {
+    border-color: var(--line-strong);
+  }
+}
+
+.swiss__outcome-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--sp-3);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.swiss__outcome-record {
+  font-size: var(--fs-2xl);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.swiss__outcome-label {
+  min-width: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.swiss__outcome-count {
+  margin-left: auto;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.swiss__outcome-count .num {
+  font-size: var(--fs-sm);
+}
+
+.swiss__outcome--out .swiss__outcome-record,
+.swiss__outcome--out .swiss__outcome-label {
+  color: var(--ink-3);
+}
+
+.swiss__outcome--out .swiss__outcome-record {
+  font-weight: 500;
+}
+
+.swiss__outcome-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  margin: 0;
+  padding: var(--sp-3) 0 0;
+  list-style: none;
+}
+
+.swiss__outcome-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.swiss__team {
+  min-width: 0;
+  font-weight: 600;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.swiss__outcome--out .swiss__team {
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+.swiss__total {
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+}
+
+/* ── 轮次 ── */
+.swiss__rounds {
+  min-width: 0;
+}
+
+.swiss__rounds-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  min-width: 0;
+  margin-bottom: var(--sp-5);
+}
+
+.swiss__rounds-head .swiss__eyebrow {
+  margin-bottom: var(--sp-3);
+}
+
+.swiss__round {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  min-width: 0;
+}
+
+.swiss__round-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-1) var(--sp-4);
+  min-width: 0;
+}
+
+.swiss__round-date {
+  font-size: var(--fs-lg);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.swiss__round-desc {
+  min-width: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
+/* ── 战绩池：左侧徽标，右侧房间 ── */
+.swiss__pools {
+  min-width: 0;
+}
+
+.swiss__pool {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: var(--sp-5);
+  align-items: start;
+  min-width: 0;
+}
+
+.swiss__pool + .swiss__pool {
+  margin-top: var(--sp-6);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--line);
+}
+
+.swiss__pool-aside {
+  position: sticky;
+  top: calc(var(--header-h) + var(--sp-4));
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.swiss__badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-1);
+  align-self: flex-start;
+  min-width: 80px;
+  padding: var(--sp-2) var(--sp-3) var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.swiss__badge-cap {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+}
+
+.swiss__badge-record {
+  font-size: var(--fs-2xl);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.swiss__pool-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+}
+
+.swiss__pool-meta {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+.swiss__pool-note {
+  font-size: var(--fs-xs);
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.swiss__lobbies {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-4);
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .swiss__lobbies--multi {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ── 本轮结束 ── */
+.swiss__round-end {
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--line-strong);
+  min-width: 0;
+}
+
+/* ── 窄屏：徽标挪到房间上方，横向排列 ── */
+@media (max-width: 719px) {
+  .swiss {
+    gap: var(--sp-6);
+  }
+
+  .swiss__pool {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-3);
+  }
+
+  .swiss__pool + .swiss__pool {
+    margin-top: var(--sp-5);
+    padding-top: var(--sp-5);
+  }
+
+  .swiss__pool-aside {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--sp-3);
+  }
+
+  .swiss__badge {
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--sp-2);
+    min-width: 0;
+    padding: var(--sp-2) var(--sp-3);
+  }
+
+  .swiss__badge-record {
+    font-size: var(--fs-xl);
+  }
+
+  .swiss__outcome-record {
+    font-size: var(--fs-xl);
+  }
+}

@@ -1,0 +1,356 @@
+/* 选手详情页：年鉴式排版。年份作左侧边注，名次 / 内容 / 分数三列对齐 */
+
+/* ── 页头 ── */
+.player-page__hero {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: var(--sp-5);
+  padding-bottom: var(--sp-6);
+  border-bottom: 1px solid var(--line);
+}
+
+.player-page__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+  padding-top: var(--sp-1);
+}
+
+.player-page__name {
+  overflow-wrap: anywhere;
+}
+
+.player-page__aliases {
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+}
+
+.player-page__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4) var(--sp-6);
+  margin-top: var(--sp-4);
+}
+
+.player-page__stats .stat__label .num {
+  font-size: var(--fs-md);
+  color: var(--ink-2);
+}
+
+/* ── 赛事履历：年份边注 + 条目 ── */
+.player-page__years {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+.player-page__year {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: var(--sp-5);
+  align-items: start;
+}
+
+.player-page__year-label {
+  position: sticky;
+  top: calc(var(--header-h) + var(--sp-4));
+  padding-top: var(--sp-3);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink-3);
+}
+
+.player-page__entries {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line-strong);
+}
+
+.player-page__entry {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr) 64px;
+  gap: var(--sp-4);
+  align-items: start;
+  padding: var(--sp-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+/* 左：名次 */
+.player-page__place {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 32px;
+}
+
+.player-page__place-label {
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.player-page__place-label.is-podium {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* 无名次：与徽章同宽的中性小圆点，保证文字列对齐 */
+.player-page__dot {
+  flex: none;
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.player-page__dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+/* 中：赛事信息 */
+.player-page__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+}
+
+.player-page__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-1) var(--sp-2);
+  min-width: 0;
+}
+
+.player-page__event {
+  min-width: 0;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  transition: color var(--dur-1) var(--ease);
+}
+
+.player-page__event:hover {
+  color: var(--accent-ink);
+}
+
+.player-page__meta {
+  font-size: var(--fs-sm);
+}
+
+.player-page__date {
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.player-page__team {
+  margin-top: var(--sp-1);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+.player-page__team-name {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.player-page__team-sep {
+  color: var(--ink-3);
+}
+
+.player-page__note {
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+
+/* 右：得分 */
+.player-page__score {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 2px;
+  min-height: 32px;
+  padding-top: 4px;
+  white-space: nowrap;
+}
+
+.player-page__score .num {
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.player-page__unit {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+/* ── 单挑战绩 ── */
+.player-page__duel-sum {
+  margin-top: 0;
+  margin-bottom: var(--sp-4);
+}
+
+.player-page__duels {
+  margin: 0;
+  padding: var(--sp-1) var(--sp-5);
+  list-style: none;
+}
+
+.player-page__duel {
+  display: grid;
+  grid-template-columns: minmax(96px, 1fr) minmax(0, 1.4fr) 64px 40px;
+  gap: var(--sp-3);
+  align-items: center;
+  min-height: 44px;
+  padding: var(--sp-2) 0;
+  border-top: 1px solid var(--line);
+}
+
+.player-page__duel:first-child {
+  border-top: 0;
+}
+
+.player-page__duel-when {
+  min-width: 0;
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-page__duel-when .num {
+  font-size: var(--fs-md);
+  color: var(--ink-2);
+}
+
+.player-page__duel-opp {
+  min-width: 0;
+}
+
+.player-page__duel-score {
+  font-size: var(--fs-lg);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.player-page__duel-result {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.player-page__duel-lose {
+  padding: 0 var(--sp-2);
+  font-size: var(--fs-xs);
+  color: var(--lose);
+}
+
+.player-page__duel-flat {
+  padding: 0 var(--sp-2);
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+/* ── 工作人员 ── */
+.player-page__staff {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-sm);
+}
+
+/* ── 返回 ── */
+.player-page__foot {
+  margin-top: var(--sp-7);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-sm);
+}
+
+.player-page__empty-back {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-sm);
+}
+
+/* ── 中屏：年份移到条目上方 ── */
+@media (max-width: 760px) {
+  .player-page__year {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-3);
+  }
+
+  .player-page__year-label {
+    position: static;
+    padding-top: 0;
+    font-size: var(--fs-lg);
+  }
+}
+
+/* ── 窄屏：头像与文字上下堆叠；名次与分数挪到条目首行 ── */
+@media (max-width: 559px) {
+  .player-page__hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-4);
+  }
+
+  .player-page__stats {
+    gap: var(--sp-4) var(--sp-5);
+  }
+
+  .player-page__entry {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--sp-2) var(--sp-3);
+  }
+
+  .player-page__place {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .player-page__score {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .player-page__main {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .player-page__duels {
+    padding: var(--sp-1) var(--sp-4);
+  }
+
+  .player-page__duel {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    row-gap: 2px;
+  }
+
+  .player-page__duel-when {
+    grid-column: 1 / -1;
+    font-size: var(--fs-xs);
+  }
+
+  .player-page__duel-opp {
+    grid-column: 1;
+  }
+}

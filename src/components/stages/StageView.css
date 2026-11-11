@@ -1,0 +1,16 @@
+.stage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: var(--sp-4);
+  align-items: start;
+}
+
+/* 多人房间一行信息多（名次、选手、分数条、分数、状态），列宽要留足 */
+.stage-grid--lobbies {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr));
+}
+
+/* 只有一个房间时不要拉满整行 */
+.stage-grid--single {
+  grid-template-columns: minmax(0, 760px);
+}

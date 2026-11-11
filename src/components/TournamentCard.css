@@ -1,0 +1,112 @@
+.t-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--sp-4) var(--sp-5) var(--sp-4);
+}
+
+.t-card__top {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.t-card__date {
+  margin-left: auto;
+  color: var(--ink-3);
+  font-size: var(--fs-md);
+  white-space: nowrap;
+}
+
+.t-card__name {
+  margin-top: var(--sp-3);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.3;
+  transition: color var(--dur-1) var(--ease);
+}
+
+.t-card:hover .t-card__name {
+  color: var(--accent-ink);
+}
+
+.t-card__tagline {
+  margin-top: var(--sp-2);
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.t-card__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: auto;
+  padding-top: var(--sp-4);
+}
+
+.t-card__foot::before {
+  content: '';
+  position: absolute;
+}
+
+.t-card__avatars {
+  display: inline-flex;
+  flex: none;
+}
+
+.t-card__avatars .avatar + .avatar {
+  margin-left: -8px;
+}
+
+.t-card__avatars .avatar {
+  box-shadow: 0 0 0 2px var(--surface);
+}
+
+.t-card__champ {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.3;
+}
+
+.t-card__champ-label {
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.t-card__champ-name {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.t-card__champ-name--none {
+  color: var(--ink-3);
+  font-weight: 400;
+}
+
+.t-card__champ-label:has(+ .t-card__champ-name--none) {
+  color: var(--ink-3);
+}
+
+.t-card__go {
+  margin-left: auto;
+  color: var(--ink-3);
+  transition:
+    transform var(--dur-2) var(--ease-out),
+    color var(--dur-1) var(--ease);
+}
+
+.t-card:hover .t-card__go {
+  color: var(--accent);
+  transform: translateX(3px);
+}

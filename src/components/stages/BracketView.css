@@ -1,0 +1,108 @@
+.bracket {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+.bracket__track-name {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+}
+
+.bracket__track-name::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* 轮次太多放不下时横向滚动 */
+.bracket__scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0 calc(var(--sp-2) * -1);
+  padding: var(--sp-1) var(--sp-2) var(--sp-3);
+  scroll-snap-type: x proximity;
+}
+
+.bracket__rounds {
+  display: grid;
+  grid-template-columns: repeat(var(--rounds), minmax(300px, 1fr));
+  gap: var(--sp-5);
+  /* 只有一两轮时不要把卡片拉得太宽 */
+  max-width: calc(var(--rounds) * 400px);
+}
+
+.bracket__round {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.bracket__round-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.bracket__step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--ink-3);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* 指向下一轮的细线与箭头 */
+.bracket__arrow {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  margin-left: var(--sp-2);
+  margin-right: calc(var(--sp-5) * -1 + var(--sp-2));
+  background: var(--line-strong);
+}
+
+.bracket__arrow::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  border-top: 1px solid var(--line-strong);
+  border-right: 1px solid var(--line-strong);
+  transform: rotate(45deg);
+}
+
+.bracket__matches {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: var(--sp-3);
+}
+
+@media (max-width: 640px) {
+  .bracket__rounds {
+    grid-template-columns: repeat(var(--rounds), minmax(280px, 86vw));
+    max-width: none;
+  }
+}

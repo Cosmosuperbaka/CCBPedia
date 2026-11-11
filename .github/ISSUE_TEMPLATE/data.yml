@@ -1,0 +1,24 @@
+name: 数据勘误 / 补充
+description: 比分、名次、选手名写错了，或者想补充缺失的记录
+labels: [数据]
+body:
+  - type: input
+    id: tournament
+    attributes:
+      label: 哪一届赛事
+      placeholder: 例如：第一届天虹杯
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: 哪里不对 / 要补充什么
+      description: 请尽量具体到阶段和场次，并写出正确的内容。
+      placeholder: 小组赛第二轮「八组 vs 三组」的比分应为 …
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: 依据
+      description: 截图、聊天记录、回放链接等。没有也可以，但有的话更容易确认。

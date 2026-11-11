@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 贡献指南
+    url: https://github.com/Cosmosuperbaka/CCBPedia/blob/main/CONTRIBUTING.md
+    about: 想自己动手录入赛事或修改数据，先看这里

@@ -1,0 +1,30 @@
+.t-year + .t-year {
+  margin-top: var(--sp-7);
+}
+
+.t-year__title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
+.t-year__title .num {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.t-year__title small {
+  color: var(--ink-3);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+}
+
+.t-year__title::after {
+  content: '';
+  flex: 1;
+  align-self: center;
+  height: 1px;
+  background: var(--line);
+}

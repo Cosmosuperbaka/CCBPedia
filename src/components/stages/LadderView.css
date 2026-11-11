@@ -1,0 +1,502 @@
+/* 自由约战视图：年鉴式排版。层级靠字重与灰度；强调色只落在选中行与筛选条上 */
+.ladder-view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+
+.ladder-view__tabs {
+  align-self: flex-start;
+}
+
+.ladder-view__block {
+  min-width: 0;
+  padding: var(--sp-4) var(--sp-5) var(--sp-3);
+}
+
+/* ── 区块头部 ── */
+.ladder-view__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-3);
+  min-height: 28px;
+}
+
+.ladder-view__head-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-1) var(--sp-3);
+  min-width: 0;
+}
+
+.ladder-view__eyebrow {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.ladder-view__legend,
+.ladder-view__count {
+  font-size: var(--fs-xs);
+  line-height: 1.4;
+}
+
+.ladder-view__count .num {
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+/* 当前筛选：浅强调底的小胶囊 */
+.ladder-view__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  max-width: 100%;
+  min-width: 0;
+  height: 28px;
+  padding: 0 var(--sp-1) 0 var(--sp-3);
+  border-radius: var(--r-full);
+  background: var(--accent-soft);
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+}
+
+.ladder-view__filter-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.ladder-view__filter-text .player-chip {
+  font-weight: 600;
+  color: var(--accent-ink);
+}
+
+.ladder-view__filter-clear {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: var(--fs-xs);
+  line-height: 1;
+  color: var(--accent-ink);
+  transition:
+    background-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease);
+}
+
+.ladder-view__filter-clear:hover {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.ladder-view__empty {
+  padding: var(--sp-5) 0 var(--sp-4);
+  font-size: var(--fs-sm);
+  text-align: center;
+}
+
+/* ── 战绩表 ── */
+/* 左右各外扩一点，让选中行的底色比文字略宽，文字仍与卡片内边距对齐 */
+.ladder-view__scroll {
+  margin: var(--sp-3) calc(-1 * var(--sp-2)) 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ladder-view__table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.ladder-view__table th {
+  padding: 0 var(--sp-2) var(--sp-2);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ladder-view__table td {
+  padding: var(--sp-2);
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+  white-space: nowrap;
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.ladder-view__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.ladder-view__row {
+  cursor: pointer;
+}
+
+.ladder-view__row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+@media (hover: hover) {
+  .ladder-view__row:hover td {
+    background: var(--bg-tint);
+  }
+}
+
+.ladder-view__row--selected td,
+.ladder-view__row--selected:hover td {
+  background: var(--accent-soft);
+}
+
+/* 列宽与对齐 */
+.ladder-view__table .ladder-view__col-rank {
+  width: 2.5em;
+  text-align: right;
+}
+
+.ladder-view__table .ladder-view__col-player {
+  max-width: 14em;
+}
+
+.ladder-view__col-player .player-chip {
+  max-width: 14em;
+}
+
+.ladder-view__table .ladder-view__col-record,
+.ladder-view__table .ladder-view__col-points,
+.ladder-view__table .ladder-view__col-diff {
+  text-align: center;
+}
+
+.ladder-view__table .ladder-view__col-reward {
+  text-align: right;
+}
+
+.ladder-view__table .ladder-view__col-rate {
+  width: 9.5em;
+}
+
+.ladder-view__idx {
+  font-size: var(--fs-sm);
+  line-height: 1;
+  color: var(--ink-3);
+}
+
+.ladder-view__row--selected .ladder-view__idx {
+  color: var(--accent-ink);
+}
+
+.ladder-view__row--selected .player-chip {
+  font-weight: 600;
+}
+
+.ladder-view__record {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3em;
+  font-size: var(--fs-lg);
+  line-height: 1;
+}
+
+.ladder-view__wins {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ladder-view__dash {
+  color: var(--ink-3);
+}
+
+.ladder-view__losses {
+  color: var(--ink-2);
+}
+
+.ladder-view__rate {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.ladder-view__rate-bar {
+  flex: 1;
+  min-width: 48px;
+}
+
+.ladder-view__rate-bar .score-bar {
+  height: 4px;
+}
+
+.ladder-view__rate-pct {
+  flex: none;
+  width: 2.6em;
+  font-size: var(--fs-sm);
+  line-height: 1;
+  color: var(--ink-2);
+  text-align: right;
+}
+
+.ladder-view__points {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.ladder-view__diff {
+  font-size: var(--fs-sm);
+  line-height: 1;
+  color: var(--ink-3);
+}
+
+.ladder-view__colon {
+  margin: 0 0.18em;
+  color: var(--ink-3);
+}
+
+.ladder-view__reward {
+  font-size: var(--fs-md);
+  line-height: 1;
+  color: var(--ink);
+}
+
+.ladder-view__none {
+  color: var(--ink-3);
+}
+
+/* 未出场名单 */
+.ladder-view__idle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-1) 0;
+  margin-top: var(--sp-2);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+
+.ladder-view__idle-item {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.ladder-view__idle .player-chip {
+  color: var(--ink-2);
+}
+
+/* ── 选手战绩摘要 ── */
+.ladder-view__focus {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-5);
+  margin-top: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+  background: var(--bg-tint);
+}
+
+.ladder-view__focus-chip {
+  font-weight: 600;
+}
+
+.ladder-view__focus-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-1) var(--sp-5);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+.ladder-view__stat {
+  white-space: nowrap;
+}
+
+.ladder-view__stat-num {
+  margin: 0 0.15em;
+  font-size: var(--fs-lg);
+  line-height: 1;
+  color: var(--ink-2);
+}
+
+.ladder-view__stat-num--strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ladder-view__stat--faint,
+.ladder-view__stat--faint .ladder-view__stat-num {
+  color: var(--ink-3);
+  font-size: var(--fs-sm);
+}
+
+/* ── 对局记录 ── */
+.ladder-view__days {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  margin-top: var(--sp-4);
+  padding-bottom: var(--sp-2);
+}
+
+.ladder-view__day {
+  min-width: 0;
+}
+
+.ladder-view__day-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.ladder-view__day-date {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.ladder-view__day-count {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+.ladder-view__duels {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 对称三栏：左选手 | 比分 | 右选手；比分栏定宽，冒号逐行对齐 */
+.ladder-view__duel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 4.5em minmax(0, 1fr);
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 38px;
+  padding: var(--sp-1) 0;
+  border-top: 1px solid var(--line);
+}
+
+.ladder-view__duel:first-child {
+  border-top: 0;
+}
+
+.ladder-view__side {
+  display: flex;
+  min-width: 0;
+  font-size: var(--fs-sm);
+}
+
+.ladder-view__side--a {
+  justify-content: flex-start;
+}
+
+.ladder-view__side--b {
+  justify-content: flex-end;
+}
+
+/* 右侧选手：名字在内、头像在外，与左侧镜像 */
+.ladder-view__side--b .player-chip {
+  flex-direction: row-reverse;
+}
+
+.ladder-view__side--win .player-chip {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ladder-view__side--lose .player-chip {
+  color: var(--lose);
+}
+
+.ladder-view__side--lose .avatar {
+  opacity: 0.75;
+}
+
+.ladder-view__side .player-chip:hover {
+  color: var(--accent-ink);
+}
+
+.ladder-view__score {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: baseline;
+  font-size: var(--fs-lg);
+  line-height: 1;
+}
+
+.ladder-view__score .ladder-view__pt:first-child {
+  text-align: right;
+}
+
+.ladder-view__pt--win {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ladder-view__pt--lose {
+  color: var(--lose);
+}
+
+/* 宽屏：对局两列排布 */
+@media (min-width: 720px) {
+  .ladder-view__duels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--sp-6);
+  }
+
+  .ladder-view__duel:nth-child(2) {
+    border-top: 0;
+  }
+}
+
+/* ── 窄屏：隐藏胜率、小分两列 ── */
+@media (max-width: 559px) {
+  .ladder-view__block {
+    padding: var(--sp-3) var(--sp-4) var(--sp-2);
+  }
+
+  .ladder-view__table .ladder-view__col-rate,
+  .ladder-view__table .ladder-view__col-diff {
+    display: none;
+  }
+
+  .ladder-view__table .ladder-view__col-rank {
+    width: 2em;
+  }
+
+  .ladder-view__col-player .player-chip {
+    max-width: 9em;
+  }
+
+  .ladder-view__focus {
+    padding: var(--sp-3);
+  }
+
+  .ladder-view__duel {
+    grid-template-columns: minmax(0, 1fr) 4em minmax(0, 1fr);
+  }
+}

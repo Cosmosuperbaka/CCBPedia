@@ -1,0 +1,335 @@
+/* 单循环视图：积分榜 + 交叉对阵。年鉴式排版，层级靠字重与灰度；胜负色柔和，只落在矩阵单元格上 */
+.round-robin {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+
+.round-robin__block {
+  min-width: 0;
+  padding: var(--sp-4) var(--sp-5) var(--sp-3);
+}
+
+.round-robin__block-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-1) var(--sp-3);
+}
+
+.round-robin__eyebrow {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.round-robin__legend {
+  font-size: var(--fs-xs);
+  line-height: 1.4;
+}
+
+.round-robin__desc {
+  margin-top: var(--sp-2);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+}
+
+/* 内容过宽时只在卡片内部横向滚动 */
+.round-robin__scroll {
+  margin-top: var(--sp-3);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── 表格通用 ── */
+.round-robin__standings,
+.round-robin__matrix {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.round-robin__standings th,
+.round-robin__matrix thead th {
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+/* ── 积分榜 ── */
+.round-robin__standings {
+  width: 100%;
+}
+
+.round-robin__standings th {
+  padding: 0 var(--sp-2) var(--sp-2);
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+.round-robin__standings td {
+  padding: var(--sp-3) var(--sp-2);
+  vertical-align: middle;
+  border-bottom: 1px solid var(--line);
+}
+
+.round-robin__standings tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.round-robin__standings th:first-child,
+.round-robin__standings td:first-child {
+  padding-left: 0;
+}
+
+.round-robin__standings th:last-child,
+.round-robin__standings td:last-child {
+  padding-right: 0;
+}
+
+.round-robin__standings .round-robin__col-rank {
+  width: 2.5em;
+  text-align: right;
+  padding-right: var(--sp-3);
+}
+
+.round-robin__standings .round-robin__col-record {
+  width: 5.5em;
+  text-align: center;
+}
+
+.round-robin__standings .round-robin__col-status {
+  width: 1%;
+}
+
+.round-robin__standings .round-robin__col-note {
+  width: 32%;
+}
+
+.round-robin__rank {
+  font-size: var(--fs-md);
+  line-height: 1;
+  color: var(--ink-3);
+}
+
+.round-robin__who {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-1);
+  min-width: 0;
+}
+
+.round-robin__team {
+  font-weight: 700;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.round-robin__record {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3em;
+  font-size: var(--fs-lg);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.round-robin__wins {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.round-robin__dash {
+  color: var(--ink-3);
+}
+
+.round-robin__losses {
+  font-weight: 400;
+  color: var(--ink-2);
+}
+
+.round-robin__note {
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+
+/* 宽屏时备注有独立列，名字下方那份隐藏 */
+.round-robin__note--inline {
+  display: none;
+}
+
+/* 淘汰：整行弱化（只降灰度，不改透明度，避免和入场动效冲突） */
+.round-robin__row--dim .round-robin__team,
+.round-robin__row--dim .round-robin__wins,
+.round-robin__row--dim .round-robin__losses {
+  color: var(--ink-3);
+}
+
+.round-robin__row--dim .round-robin__wins {
+  font-weight: 500;
+}
+
+/* ── 交叉对阵 ── */
+.round-robin__matrix {
+  min-width: 100%;
+}
+
+.round-robin__matrix thead th {
+  padding: 0 var(--sp-1) var(--sp-2);
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.round-robin__corner {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.round-robin__matrix tbody tr {
+  border-bottom: 1px solid var(--line);
+}
+
+.round-robin__matrix tbody tr:last-child {
+  border-bottom: 0;
+}
+
+/* 行头：sticky 在左侧，右缘用内阴影画分隔线（collapse 模式下 sticky 单元格的边框不会跟随） */
+.round-robin__row-head {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  width: 1%;
+  padding: 0 var(--sp-4) 0 0;
+  background: var(--surface);
+  box-shadow: inset -1px 0 0 var(--line);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ink-2);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.round-robin__corner {
+  box-shadow: inset -1px 0 0 var(--line);
+}
+
+.round-robin__head-name,
+.round-robin__row-head,
+.round-robin__col-head {
+  transition: color var(--dur-1) var(--ease);
+}
+
+/* 悬停某格时，提亮对应的行头和列头 */
+.round-robin__head--hl,
+.round-robin__matrix thead th.round-robin__head--hl {
+  color: var(--ink);
+}
+
+.round-robin__cell {
+  min-width: 72px;
+  padding: var(--sp-1);
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* 单元格内容块：统一尺寸，矩阵读起来像整齐的格子 */
+.round-robin__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 var(--sp-2);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-xs);
+  line-height: 1.2;
+  white-space: nowrap;
+  transition:
+    box-shadow var(--dur-1) var(--ease),
+    transform var(--dur-1) var(--ease-out);
+}
+
+.round-robin__cell--score .round-robin__mark {
+  font-size: var(--fs-lg);
+}
+
+.round-robin__colon {
+  margin: 0 0.12em;
+  opacity: 0.55;
+}
+
+/* 胜：柔和绿字 + 浅绿底；负：灰字无底 */
+.round-robin__cell--win .round-robin__mark {
+  color: var(--win);
+}
+
+.round-robin__cell--win.round-robin__cell--score .round-robin__mark {
+  background: var(--win-soft);
+  font-weight: 600;
+}
+
+.round-robin__cell--lose .round-robin__mark {
+  color: var(--lose);
+}
+
+.round-robin__cell--none .round-robin__mark {
+  color: var(--ink-2);
+}
+
+.round-robin__none {
+  color: var(--ink-3);
+}
+
+/* 对角线：自己对自己 */
+.round-robin__cell--self .round-robin__mark {
+  background: var(--surface-2);
+}
+
+/* 悬停格与其镜像格：细描边，帮助对照同一场比赛的两个视角 */
+@media (hover: hover) {
+  .round-robin__cell:not(.round-robin__cell--self):hover .round-robin__mark {
+    box-shadow: inset 0 0 0 1px var(--line-strong);
+    transform: translateY(-1px);
+  }
+}
+
+.round-robin__cell--mirror .round-robin__mark {
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+
+/* ── 窄屏 ── */
+@media (max-width: 640px) {
+  .round-robin__block {
+    padding: var(--sp-3) var(--sp-4) var(--sp-2);
+  }
+
+  .round-robin__standings .round-robin__col-note {
+    display: none;
+  }
+
+  .round-robin__note--inline {
+    display: block;
+  }
+
+  .round-robin__standings .round-robin__col-rank {
+    width: 2em;
+    padding-right: var(--sp-2);
+  }
+
+  .round-robin__standings .round-robin__col-record {
+    width: 4.5em;
+  }
+
+  .round-robin__row-head {
+    padding-right: var(--sp-3);
+  }
+}

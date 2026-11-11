@@ -1,0 +1,102 @@
+/* 选手列表页：卡片只靠字重与灰度区分层级，冠军数是唯一带色的信息 */
+
+/* 搜索框 + 人数 */
+.players-page__find {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.players-page__find .search {
+  flex: 0 1 280px;
+}
+
+.players-page__find .search input::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+.players-page__count {
+  flex: none;
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.players-page__count .num {
+  font-size: var(--fs-md);
+  color: var(--ink-2);
+}
+
+/* ── 选手卡片 ── */
+.players-card {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-width: 0;
+  padding: var(--sp-3) var(--sp-4);
+}
+
+.players-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+  flex: 1;
+}
+
+.players-card__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--fs-md);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ink);
+  transition: color var(--dur-1) var(--ease);
+}
+
+.players-card:hover .players-card__name {
+  color: var(--accent-ink);
+}
+
+.players-card__stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-1) var(--sp-2);
+  min-width: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+
+.players-card__stats .num {
+  font-size: var(--fs-sm);
+}
+
+.players-card__stat {
+  white-space: nowrap;
+}
+
+.players-card__stat .num {
+  color: var(--ink-2);
+}
+
+.players-card__role {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .players-page__find {
+    flex-basis: 100%;
+  }
+
+  .players-page__find .search {
+    flex: 1 1 auto;
+    width: auto;
+  }
+}

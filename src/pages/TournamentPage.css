@@ -1,0 +1,464 @@
+.t-page__back {
+  display: inline-block;
+  margin-bottom: var(--sp-4);
+  font-size: var(--fs-sm);
+}
+
+/* ── 概况 ── */
+.t-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-6);
+  align-items: end;
+}
+
+.t-hero--cover {
+  grid-template-columns: minmax(0, 1fr) 220px;
+}
+
+.t-hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.t-hero__title {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-3xl);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+.t-hero__date {
+  margin-top: var(--sp-2);
+  color: var(--ink-2);
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.t-hero__tagline {
+  max-width: 60ch;
+  margin-top: var(--sp-3);
+  color: var(--ink-2);
+  font-size: var(--fs-lg);
+  line-height: 1.7;
+}
+
+.t-hero__format {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: var(--sp-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.t-hero__cover {
+  display: block;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-2);
+  transform: rotate(2deg);
+  transition: transform var(--dur-3) var(--ease-out);
+}
+
+.t-hero__cover:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.t-hero__cover img {
+  width: 100%;
+  aspect-ratio: 1100 / 1556;
+  object-fit: cover;
+}
+
+/* ── 页内导航 ── */
+.t-nav {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 10;
+  margin: var(--sp-6) calc(var(--sp-2) * -1) 0;
+  padding: var(--sp-2);
+  background: var(--bg);
+}
+
+.t-section {
+  scroll-margin-top: calc(var(--header-h) + 64px);
+}
+
+.t-nav + .t-section {
+  margin-top: var(--sp-5);
+}
+
+.t-stage-no {
+  margin-right: var(--sp-3);
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.t-stage-desc {
+  max-width: 76ch;
+  margin: calc(var(--sp-2) * -1) 0 var(--sp-4);
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+}
+
+.t-footnote {
+  margin-top: var(--sp-3);
+  color: var(--ink-3);
+  font-size: var(--fs-sm);
+}
+
+/* ── 领奖台 ── */
+.podium {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: var(--sp-4);
+  align-items: stretch;
+}
+
+.podium > * {
+  display: flex;
+}
+
+.podium__card {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  overflow: hidden;
+}
+
+.podium__card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: var(--line-strong);
+}
+
+.podium__card--1::before {
+  background: var(--gold);
+}
+
+.podium__card--2::before {
+  background: var(--silver);
+}
+
+.podium__card--3::before {
+  background: var(--bronze);
+}
+
+.podium__rank {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.podium__label {
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.podium__score {
+  margin-left: auto;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.podium__score small {
+  margin-left: 2px;
+  color: var(--ink-3);
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+}
+
+.podium__team {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.podium__solo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.podium__note {
+  margin-top: auto;
+  color: var(--ink-3);
+  font-size: var(--fs-xs);
+}
+
+/* 第四名及以后 */
+.rest {
+  margin-top: var(--sp-4);
+  padding: var(--sp-2) var(--sp-5);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+  column-gap: var(--sp-6);
+}
+
+.rest__row {
+  display: grid;
+  grid-template-columns: 24px 44px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  border-bottom: 1px solid var(--line);
+}
+
+.rest--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.rest--single .rest__row {
+  border-bottom: 0;
+}
+
+.rest__rank {
+  color: var(--ink-3);
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.rest__label {
+  color: var(--ink-3);
+  font-size: var(--fs-xs);
+}
+
+.rest__who {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--sp-3);
+  min-width: 0;
+  padding: var(--sp-1) 0;
+}
+
+.rest__team {
+  font-weight: 700;
+}
+
+.rest__note {
+  color: var(--ink-3);
+  font-size: var(--fs-xs);
+}
+
+.rest__score {
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.awards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3) var(--sp-6);
+  margin-top: var(--sp-4);
+}
+
+.awards__group {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.t-notice {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-5);
+  border-left: 3px solid var(--warn);
+}
+
+.t-notice__title {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+}
+
+/* ── 赛制与队伍 ── */
+.t-format {
+  display: grid;
+  gap: var(--sp-4);
+  align-items: start;
+}
+
+.t-format--split {
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+}
+
+.t-rules {
+  padding: var(--sp-4) var(--sp-5);
+}
+
+.t-rules ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: rule;
+}
+
+.t-rules li {
+  position: relative;
+  padding: var(--sp-2) 0 var(--sp-2) 34px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  counter-increment: rule;
+}
+
+.t-rules li + li {
+  border-top: 1px solid var(--line);
+}
+
+.t-rules li::before {
+  content: counter(rule, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 9px;
+  color: var(--ink-3);
+  font-family: var(--font-num);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.t-teams {
+  padding: var(--sp-2) var(--sp-5);
+}
+
+.t-teams__row {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+}
+
+.t-teams__row + .t-teams__row {
+  border-top: 1px solid var(--line);
+}
+
+.t-teams__name {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.t-teams__name small {
+  color: var(--ink-3);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+}
+
+/* ── 赛评 ── */
+.t-reviews {
+  columns: 2 380px;
+  column-gap: var(--sp-4);
+}
+
+.t-review {
+  break-inside: avoid;
+  margin-bottom: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+}
+
+.t-review__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-2);
+}
+
+.t-review__head strong {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+}
+
+.t-review__head .num {
+  color: var(--accent-ink);
+  font-size: 19px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.t-review__body {
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+  line-height: 1.85;
+}
+
+/* ── 名单 ── */
+.t-people {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  padding: var(--sp-5);
+}
+
+.t-people__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* ── 上一届 / 下一届 ── */
+.t-siblings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+  margin-top: var(--sp-7);
+}
+
+.t-siblings__link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--sp-4) var(--sp-5);
+  font-size: var(--fs-sm);
+}
+
+.t-siblings__link strong {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+}
+
+.t-siblings__link--next {
+  grid-column: 2;
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .t-hero--cover {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .t-hero__cover {
+    max-width: 200px;
+  }
+
+  .t-hero__title {
+    font-size: 38px;
+  }
+
+  .t-format--split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rest {
+    padding: var(--sp-2) var(--sp-4);
+  }
+}

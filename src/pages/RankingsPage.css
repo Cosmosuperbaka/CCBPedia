@@ -1,0 +1,394 @@
+/* 年度榜单页：年鉴式排版，层级靠字重与灰度区分，强调色只用于积分构成横条与第一名的细线 */
+
+/* 切换栏之后的第一个区块不再额外留白 */
+.rankings-page .toolbar + * > .section:first-child {
+  margin-top: 0;
+}
+
+.rankings-page__eyebrow {
+  margin-bottom: var(--sp-1);
+}
+
+.rankings-page__best .section__head {
+  align-items: flex-end;
+}
+
+/* 色块：图例与积分细则共用，和构成横条的段颜色一致 */
+.rankings-page__swatch {
+  flex: none;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent) var(--mix, 50%), var(--surface-2));
+}
+
+/* ───────────── 年度最佳选手：前三 ───────────── */
+.rankings-page__podium {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rankings-page__pick {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
+  padding: var(--sp-5);
+  overflow: hidden;
+}
+
+/* 第一名：顶部一条细金线 */
+.rankings-page__pick--first::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gold);
+}
+
+.rankings-page__pick-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.rankings-page__pick-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.rankings-page__pick-name {
+  align-self: flex-start;
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.rankings-page__pick-stats {
+  display: flex;
+  gap: var(--sp-6);
+  margin: 0;
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--line);
+}
+
+.rankings-page__pick-stats dt {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+.rankings-page__pick-stats dd {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+.rankings-page__pick-stats .num {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ───────────── 年度最佳选手：4–20 ───────────── */
+.rankings-page__rest {
+  margin-top: var(--sp-4);
+  padding: var(--sp-3) var(--sp-5);
+}
+
+.rankings-page__rest-list {
+  columns: 3;
+  column-gap: var(--sp-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rankings-page__rest-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-width: 0;
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--line);
+  break-inside: avoid;
+}
+
+.rankings-page__rest-rank {
+  flex: none;
+  width: 2ch;
+  font-size: var(--fs-md);
+  color: var(--ink-3);
+  text-align: right;
+}
+
+/* ───────────── 年度积分榜 ───────────── */
+.rankings-page__board {
+  padding: var(--sp-2) 0 var(--sp-2);
+}
+
+.rankings-page__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  margin: 0;
+  padding: var(--sp-3) var(--sp-4) var(--sp-3);
+  list-style: none;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+}
+
+.rankings-page__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.rankings-page__table {
+  table-layout: fixed;
+}
+
+.rankings-page__col-rank {
+  width: 56px;
+}
+
+.rankings-page__col-player {
+  width: 26%;
+}
+
+.rankings-page__col-points {
+  width: 76px;
+}
+
+.rankings-page__table th.rankings-page__th-parts,
+.rankings-page__table td.rankings-page__parts {
+  padding-left: var(--sp-5);
+}
+
+.rankings-page__rank {
+  font-size: var(--fs-md);
+  color: var(--ink-3);
+}
+
+.rankings-page__player {
+  min-width: 0;
+}
+
+.rankings-page__points {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+
+/* 构成横条：总宽 ∝ 该选手积分 / 第一名积分 */
+.rankings-page__bar {
+  display: flex;
+  gap: 2px;
+  height: 8px;
+  border-radius: var(--r-full);
+  overflow: hidden;
+}
+
+.rankings-page__seg {
+  flex: 1 1 0;
+  min-width: 0;
+  background: color-mix(in srgb, var(--accent) var(--mix, 50%), var(--surface-2));
+  transition: opacity var(--dur-1) var(--ease);
+}
+
+@media (hover: hover) {
+  .rankings-page__bar:hover .rankings-page__seg {
+    opacity: 0.55;
+  }
+
+  .rankings-page__bar:hover .rankings-page__seg:hover {
+    opacity: 1;
+  }
+}
+
+.rankings-page__parts-text {
+  margin-top: 6px;
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+
+.rankings-page__parts-text .num {
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+.rankings-page__parts-text .link {
+  color: var(--ink-2);
+  transition:
+    color var(--dur-1) var(--ease),
+    background-size var(--dur-2) var(--ease-out);
+}
+
+.rankings-page__parts-text .link:hover {
+  color: var(--accent-ink);
+}
+
+.rankings-page__part {
+  white-space: nowrap;
+}
+
+.rankings-page__dot {
+  white-space: pre;
+}
+
+/* ───────────── 积分细则 ───────────── */
+.rankings-page__rules {
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.rankings-page__rule {
+  display: grid;
+  grid-template-columns: minmax(9em, 12em) minmax(0, 1fr);
+  gap: var(--sp-1) var(--sp-5);
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.rankings-page__rule-name {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-width: 0;
+  font-weight: 600;
+}
+
+.rankings-page__rule-name .link {
+  color: var(--ink);
+  transition:
+    color var(--dur-1) var(--ease),
+    background-size var(--dur-2) var(--ease-out);
+}
+
+.rankings-page__rule-name .link:hover {
+  color: var(--accent-ink);
+}
+
+.rankings-page__rule-text {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--ink-2);
+}
+
+/* ───────────── 年度荣誉 ───────────── */
+.rankings-page__honors {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rankings-page__honor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  min-width: 0;
+  padding: var(--sp-4) var(--sp-5);
+}
+
+.rankings-page__honor-title {
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+}
+
+.rankings-page__honor-winner {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+/* ───────────── 响应式 ───────────── */
+@media (max-width: 899px) {
+  .rankings-page__rest-list {
+    columns: 2;
+  }
+}
+
+@media (max-width: 639px) {
+  /* 前三名改为纵向堆叠，卡片内横排 */
+  .rankings-page__podium {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-3);
+  }
+
+  .rankings-page__pick {
+    flex-direction: row;
+    align-items: center;
+    padding: var(--sp-4);
+  }
+
+  .rankings-page__pick-top {
+    flex: none;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .rankings-page__pick-body {
+    flex: 1;
+  }
+
+  .rankings-page__pick-stats {
+    gap: var(--sp-5);
+  }
+
+  .rankings-page__rest {
+    padding: var(--sp-2) var(--sp-4);
+  }
+
+  .rankings-page__col-rank {
+    width: 44px;
+  }
+
+  .rankings-page__col-player {
+    width: 40%;
+  }
+
+  .rankings-page__col-points {
+    width: 52px;
+  }
+
+  .rankings-page__points {
+    font-size: var(--fs-lg);
+  }
+
+  .rankings-page__table th.rankings-page__th-parts,
+  .rankings-page__table td.rankings-page__parts {
+    padding-left: var(--sp-3);
+  }
+
+  /* 窄屏只留横条 */
+  .rankings-page__parts-text {
+    display: none;
+  }
+
+  .rankings-page__rule {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 479px) {
+  .rankings-page__rest-list {
+    columns: 1;
+  }
+}

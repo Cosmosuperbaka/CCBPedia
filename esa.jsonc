@@ -1,0 +1,10 @@
+{
+  // 阿里云 ESA Pages 配置
+  "name": "ccbpedia",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
+  "assets": {
+    "directory": "./dist",
+    "notFoundStrategy": "singlePageApplication"
+  }
+}

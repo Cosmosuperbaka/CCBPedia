@@ -1,0 +1,189 @@
+/* 页面级共用样式：所有页面的页头、网格、表格、空状态都用这里的类。 */
+.page {
+  padding-top: var(--sp-6);
+}
+
+.page-head {
+  margin-bottom: var(--sp-6);
+}
+
+.page-head__eyebrow {
+  margin-bottom: var(--sp-2);
+}
+
+.page-title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+
+.page-lead {
+  max-width: 62ch;
+  margin-top: var(--sp-3);
+  color: var(--ink-2);
+}
+
+/* 工具条：筛选、切换 */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3) var(--sp-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-5);
+}
+
+/* 自适应网格 */
+.grid {
+  display: grid;
+  gap: var(--sp-4);
+}
+
+.grid--2 {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+}
+
+.grid--3 {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+}
+
+.grid--4 {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+}
+
+/* 数据表格 */
+.table-wrap {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-md);
+}
+
+.data-table th {
+  padding: var(--sp-3) var(--sp-4);
+  color: var(--ink-3);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--line);
+}
+
+.data-table td {
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.data-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.data-table tbody tr {
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.data-table tbody tr:hover {
+  background: var(--bg-tint);
+}
+
+.data-table .col-num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.data-table .col-center {
+  text-align: center;
+}
+
+/* 搜索框 */
+.search {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  height: 38px;
+  width: min(100%, 280px);
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-full);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--ink-3);
+  transition: box-shadow var(--dur-1) var(--ease);
+}
+
+.search:focus-within {
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--fs-sm);
+}
+
+.search input::placeholder {
+  color: var(--ink-3);
+}
+
+/* 空状态 */
+.empty {
+  padding: var(--sp-7) var(--sp-4);
+  text-align: center;
+  color: var(--ink-3);
+}
+
+/* 文字链接 */
+.link {
+  color: var(--accent-ink);
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition: background-size var(--dur-2) var(--ease-out);
+}
+
+.link:hover {
+  background-size: 100% 1px;
+}
+
+/* 大数字统计 */
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat__value {
+  font-family: var(--font-num);
+  font-size: var(--fs-2xl);
+  font-weight: 600;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat__label {
+  color: var(--ink-3);
+  font-size: var(--fs-sm);
+}
+
+@media (max-width: 640px) {
+  .page-title {
+    font-size: 28px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: var(--sp-2) var(--sp-3);
+  }
+}
